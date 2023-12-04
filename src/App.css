@@ -1,0 +1,25 @@
+.botao {
+  transition: all ,3s;
+  width: 200px;
+
+}
+
+.botao:hover {
+  background-color: red;
+  width: 300px;
+}
+
+.botao:active {
+  background-color: blue;
+}
+
+.bolso{
+  background-color: green;
+}
+
+.card{
+  box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+  padding: 30px;
+  border-radius: 15px;
+  margin: 30px 0;
+}
