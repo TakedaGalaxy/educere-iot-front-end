@@ -11,30 +11,42 @@ async function getRotaPadrao() {
   return res.data;
 }
 
-async function portRotaPadrao(numero: number) {
-  const res = await instancia.post(`/teste?parametro=${numero}`);
+type bodyPost = {
+  numero: number;
+  texto: string;
+};
+
+async function portRotaPadrao(body: bodyPost) {
+  const res = await instancia.post(`/`, body);
 
   return res;
 }
 
 function App() {
   const [count, setCount] = useState(0);
-  const [mensagem, setMensagem] = useState<Array<string>>([]);
+  const [mensagem, setMensagem] = useState<
+    Array<{
+      id: number;
+      nome: string;
+      idade: number;
+    }>
+  >([]);
 
   useEffect(() => {
     getRotaPadrao().then((res) => {
       console.log(res);
-      const texto = res.texto;
-      setMensagem(texto);
+      setMensagem(res);
     });
   }, []);
 
   return (
     <>
-      {mensagem.map((texto, index) => {
+      {mensagem.map(({ id, idade, nome }, index) => {
         return (
           <div className="card" key={index}>
-            <h1>{texto}</h1>
+            <h1>
+              {id} {nome} {idade}
+            </h1>
           </div>
         );
       })}
@@ -53,7 +65,10 @@ function App() {
       <button
         className="botao"
         onClick={() => {
-          portRotaPadrao(count).then((res) => {
+          portRotaPadrao({
+            numero: count,
+            texto: "SLA",
+          }).then((res) => {
             console.log(res);
           });
         }}
